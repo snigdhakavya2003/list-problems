@@ -1,0 +1,40 @@
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'minimumBribes' function below.
+#
+# The function accepts INTEGER_ARRAY q as parameter.
+#
+
+def minimumBribes(q):
+    totalBribes = [0 for i in range(len(q))]
+    
+    # Write your code here
+    for i in range(len(q) - 1, 0, -1):
+        j = i
+        while (j < len(q) and q[j] < q[j-1]):
+            temp = q[j]
+            q[j] = q[j-1]
+            q[j-1] = temp
+            totalBribes[q[j] - 1]+=1
+            j+=1
+            
+    if (max(totalBribes) > 2):
+        print("Too chaotic")
+    else:
+        print(sum(totalBribes))
+
+if __name__ == '__main__':
+
+    t = int(input().strip())
+
+    for t_itr in range(t):
+        n = int(input().strip())
+
+        q = list(map(int, input().rstrip().split()))
+
+        minimumBribes(q)
